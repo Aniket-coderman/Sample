@@ -14,6 +14,7 @@ namespace server.Services{ // export item service
                 
         public override async Task FindItems(QueryRequest request,IServerStreamWriter<QueryResponse> responseStream, ServerCallContext context)
         {
+            // HasAttachments = true subject = Important
             string req = request.Filter;
             req.Trim();
             string[] sep = req.split(" ");
