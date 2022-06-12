@@ -1,0 +1,23 @@
+syntax = "proto3";
+//import "google/protobuf/timestamp.proto";
+option csharp_namespace = "server";
+
+package server; // ItemsService.proto
+    //FindItems
+service ExportItem {
+  rpc FindItems (QueryRequest) returns (stream QueryResponse);
+}
+// An employee resource
+message QueryResponse {
+  int32 collectionId = 1;
+  bool hasAttachments = 2;
+  string subject = 3;
+   // map<string,string> // 5 - 6 more properties
+}
+// Request message for FilterEmployees method.
+message QueryRequest { 
+  string filter = 1;   
+  // string sortby = 2;
+  // string select = 3;
+}
+
