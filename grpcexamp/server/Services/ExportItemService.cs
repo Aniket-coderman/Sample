@@ -16,8 +16,23 @@ namespace server.Services{ // export item service
         {
             string req = request.Filter;
             req.Trim();
-            
-            var items = MessageData.MessagesData.Where(p => p.HasAttachments == true).ToList();
+            string[] sep = req.split(" ");
+            bool? flag = null;
+            string subj = "";
+            for(int i = 0 ; i < sep.Length ; i++){
+                if(sep[i].Contains("HasAttachments")){
+                    if(sep[i+2] == "true"){
+                        flag = true;
+                    }
+                    else{
+                        flag = false;
+                    }
+                }
+                if(sep[i].Contains("subject")){
+                    subj = sep[i+2];
+                }
+            }
+            var items = MessageData.MessagesData.Where(p => p.HasAttachments == flag && p.Subject.Contains(subj)).ToList();
             foreach(var item in items){
                 await responseStream.WriteAsync(item);
             }
